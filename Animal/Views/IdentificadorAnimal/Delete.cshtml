@@ -1,0 +1,48 @@
+﻿@model Animal.Models.IdentificadorAnimal
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>IdentificadorAnimal</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.codigoIdentificador)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.codigoIdentificador)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Animal.idAnimal)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Animal.idAnimal)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TipoIdentificador.descricao)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TipoIdentificador.descricao)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

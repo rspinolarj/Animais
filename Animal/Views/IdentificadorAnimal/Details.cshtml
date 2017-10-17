@@ -1,0 +1,42 @@
+﻿@model Animal.Models.IdentificadorAnimal
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>IdentificadorAnimal</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.codigoIdentificador)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.codigoIdentificador)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Animal.idAnimal)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Animal.idAnimal)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TipoIdentificador.descricao)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TipoIdentificador.descricao)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.idIdentificadorAnimal }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

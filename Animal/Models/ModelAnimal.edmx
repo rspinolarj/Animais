@@ -1,0 +1,374 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="bancoAnimalModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Animal">
+          <Key>
+            <PropertyRef Name="idAnimal" />
+          </Key>
+          <Property Name="idAnimal" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Esp_idEspecie" Type="smallint" />
+          <Property Name="sex_idSexo" Type="tinyint" />
+          <Property Name="StA_idStatusAnimal" Type="tinyint" />
+        </EntityType>
+        <EntityType Name="Especie">
+          <Key>
+            <PropertyRef Name="idEspecie" />
+          </Key>
+          <Property Name="idEspecie" Type="smallint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nomeVulgar" Type="nvarchar" MaxLength="150" />
+          <Property Name="nomeCientifico" Type="nvarchar" MaxLength="150" />
+        </EntityType>
+        <EntityType Name="IdentificadorAnimal">
+          <Key>
+            <PropertyRef Name="idIdentificadorAnimal" />
+          </Key>
+          <Property Name="idIdentificadorAnimal" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="codigoIdentificador" Type="nvarchar" MaxLength="50" />
+          <Property Name="Ani_idAnimal" Type="int" />
+          <Property Name="TpI_idTipoIdentificador" Type="tinyint" />
+        </EntityType>
+        <EntityType Name="Sexo">
+          <Key>
+            <PropertyRef Name="idSexo" />
+          </Key>
+          <Property Name="idSexo" Type="tinyint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="descricao" Type="varchar" MaxLength="15" />
+        </EntityType>
+        <EntityType Name="StatusAnimal">
+          <Key>
+            <PropertyRef Name="idStatusAnimal" />
+          </Key>
+          <Property Name="idStatusAnimal" Type="tinyint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="descricao" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="TipoIdentificador">
+          <Key>
+            <PropertyRef Name="idTipoIdentificador" />
+          </Key>
+          <Property Name="idTipoIdentificador" Type="tinyint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="descricao" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <Association Name="FK_Animal_Especie">
+          <End Role="Especie" Type="Self.Especie" Multiplicity="0..1" />
+          <End Role="Animal" Type="Self.Animal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Especie">
+              <PropertyRef Name="idEspecie" />
+            </Principal>
+            <Dependent Role="Animal">
+              <PropertyRef Name="Esp_idEspecie" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Animal_Sexo">
+          <End Role="Sexo" Type="Self.Sexo" Multiplicity="0..1" />
+          <End Role="Animal" Type="Self.Animal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sexo">
+              <PropertyRef Name="idSexo" />
+            </Principal>
+            <Dependent Role="Animal">
+              <PropertyRef Name="sex_idSexo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Animal_StatusAnimal">
+          <End Role="StatusAnimal" Type="Self.StatusAnimal" Multiplicity="0..1" />
+          <End Role="Animal" Type="Self.Animal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StatusAnimal">
+              <PropertyRef Name="idStatusAnimal" />
+            </Principal>
+            <Dependent Role="Animal">
+              <PropertyRef Name="StA_idStatusAnimal" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IdentificadorAnimal_Animal">
+          <End Role="Animal" Type="Self.Animal" Multiplicity="0..1" />
+          <End Role="IdentificadorAnimal" Type="Self.IdentificadorAnimal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Animal">
+              <PropertyRef Name="idAnimal" />
+            </Principal>
+            <Dependent Role="IdentificadorAnimal">
+              <PropertyRef Name="Ani_idAnimal" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IdentificadorAnimal_TipoIdentificador">
+          <End Role="TipoIdentificador" Type="Self.TipoIdentificador" Multiplicity="0..1" />
+          <End Role="IdentificadorAnimal" Type="Self.IdentificadorAnimal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TipoIdentificador">
+              <PropertyRef Name="idTipoIdentificador" />
+            </Principal>
+            <Dependent Role="IdentificadorAnimal">
+              <PropertyRef Name="TpI_idTipoIdentificador" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="bancoAnimalModelStoreContainer">
+          <EntitySet Name="Animal" EntityType="Self.Animal" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Especie" EntityType="Self.Especie" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="IdentificadorAnimal" EntityType="Self.IdentificadorAnimal" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sexo" EntityType="Self.Sexo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="StatusAnimal" EntityType="Self.StatusAnimal" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TipoIdentificador" EntityType="Self.TipoIdentificador" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Animal_Especie" Association="Self.FK_Animal_Especie">
+            <End Role="Especie" EntitySet="Especie" />
+            <End Role="Animal" EntitySet="Animal" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Animal_Sexo" Association="Self.FK_Animal_Sexo">
+            <End Role="Sexo" EntitySet="Sexo" />
+            <End Role="Animal" EntitySet="Animal" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Animal_StatusAnimal" Association="Self.FK_Animal_StatusAnimal">
+            <End Role="StatusAnimal" EntitySet="StatusAnimal" />
+            <End Role="Animal" EntitySet="Animal" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IdentificadorAnimal_Animal" Association="Self.FK_IdentificadorAnimal_Animal">
+            <End Role="Animal" EntitySet="Animal" />
+            <End Role="IdentificadorAnimal" EntitySet="IdentificadorAnimal" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IdentificadorAnimal_TipoIdentificador" Association="Self.FK_IdentificadorAnimal_TipoIdentificador">
+            <End Role="TipoIdentificador" EntitySet="TipoIdentificador" />
+            <End Role="IdentificadorAnimal" EntitySet="IdentificadorAnimal" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="bancoAnimalModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Animal">
+          <Key>
+            <PropertyRef Name="idAnimal" />
+          </Key>
+          <Property Name="idAnimal" Type="Int32" Nullable="false" />
+          <Property Name="Esp_idEspecie" Type="Int16" />
+          <Property Name="sex_idSexo" Type="Byte" />
+          <Property Name="StA_idStatusAnimal" Type="Byte" />
+          <NavigationProperty Name="Especie" Relationship="Self.FK_Animal_Especie" FromRole="Animal" ToRole="Especie" />
+          <NavigationProperty Name="Sexo" Relationship="Self.FK_Animal_Sexo" FromRole="Animal" ToRole="Sexo" />
+          <NavigationProperty Name="StatusAnimal" Relationship="Self.FK_Animal_StatusAnimal" FromRole="Animal" ToRole="StatusAnimal" />
+          <NavigationProperty Name="IdentificadorAnimal" Relationship="Self.FK_IdentificadorAnimal_Animal" FromRole="Animal" ToRole="IdentificadorAnimal" />
+        </EntityType>
+        <EntityType Name="Especie">
+          <Key>
+            <PropertyRef Name="idEspecie" />
+          </Key>
+          <Property Name="idEspecie" Type="Int16" Nullable="false" />
+          <Property Name="nomeVulgar" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="nomeCientifico" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Animal" Relationship="Self.FK_Animal_Especie" FromRole="Especie" ToRole="Animal" />
+        </EntityType>
+        <EntityType Name="IdentificadorAnimal">
+          <Key>
+            <PropertyRef Name="idIdentificadorAnimal" />
+          </Key>
+          <Property Name="idIdentificadorAnimal" Type="Int32" Nullable="false" />
+          <Property Name="codigoIdentificador" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Ani_idAnimal" Type="Int32" />
+          <Property Name="TpI_idTipoIdentificador" Type="Byte" />
+          <NavigationProperty Name="Animal" Relationship="Self.FK_IdentificadorAnimal_Animal" FromRole="IdentificadorAnimal" ToRole="Animal" />
+          <NavigationProperty Name="TipoIdentificador" Relationship="Self.FK_IdentificadorAnimal_TipoIdentificador" FromRole="IdentificadorAnimal" ToRole="TipoIdentificador" />
+        </EntityType>
+        <EntityType Name="Sexo">
+          <Key>
+            <PropertyRef Name="idSexo" />
+          </Key>
+          <Property Name="idSexo" Type="Byte" Nullable="false" />
+          <Property Name="descricao" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Animal" Relationship="Self.FK_Animal_Sexo" FromRole="Sexo" ToRole="Animal" />
+        </EntityType>
+        <EntityType Name="StatusAnimal">
+          <Key>
+            <PropertyRef Name="idStatusAnimal" />
+          </Key>
+          <Property Name="idStatusAnimal" Type="Byte" Nullable="false" />
+          <Property Name="descricao" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Animal" Relationship="Self.FK_Animal_StatusAnimal" FromRole="StatusAnimal" ToRole="Animal" />
+        </EntityType>
+        <EntityType Name="TipoIdentificador">
+          <Key>
+            <PropertyRef Name="idTipoIdentificador" />
+          </Key>
+          <Property Name="idTipoIdentificador" Type="Byte" Nullable="false" />
+          <Property Name="descricao" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="IdentificadorAnimal" Relationship="Self.FK_IdentificadorAnimal_TipoIdentificador" FromRole="TipoIdentificador" ToRole="IdentificadorAnimal" />
+        </EntityType>
+        <Association Name="FK_Animal_Especie">
+          <End Role="Especie" Type="Self.Especie" Multiplicity="0..1" />
+          <End Role="Animal" Type="Self.Animal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Especie">
+              <PropertyRef Name="idEspecie" />
+            </Principal>
+            <Dependent Role="Animal">
+              <PropertyRef Name="Esp_idEspecie" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Animal_Sexo">
+          <End Role="Sexo" Type="Self.Sexo" Multiplicity="0..1" />
+          <End Role="Animal" Type="Self.Animal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sexo">
+              <PropertyRef Name="idSexo" />
+            </Principal>
+            <Dependent Role="Animal">
+              <PropertyRef Name="sex_idSexo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Animal_StatusAnimal">
+          <End Role="StatusAnimal" Type="Self.StatusAnimal" Multiplicity="0..1" />
+          <End Role="Animal" Type="Self.Animal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StatusAnimal">
+              <PropertyRef Name="idStatusAnimal" />
+            </Principal>
+            <Dependent Role="Animal">
+              <PropertyRef Name="StA_idStatusAnimal" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IdentificadorAnimal_Animal">
+          <End Role="Animal" Type="Self.Animal" Multiplicity="0..1" />
+          <End Role="IdentificadorAnimal" Type="Self.IdentificadorAnimal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Animal">
+              <PropertyRef Name="idAnimal" />
+            </Principal>
+            <Dependent Role="IdentificadorAnimal">
+              <PropertyRef Name="Ani_idAnimal" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IdentificadorAnimal_TipoIdentificador">
+          <End Role="TipoIdentificador" Type="Self.TipoIdentificador" Multiplicity="0..1" />
+          <End Role="IdentificadorAnimal" Type="Self.IdentificadorAnimal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TipoIdentificador">
+              <PropertyRef Name="idTipoIdentificador" />
+            </Principal>
+            <Dependent Role="IdentificadorAnimal">
+              <PropertyRef Name="TpI_idTipoIdentificador" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="bancoAnimalEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Animal" EntityType="Self.Animal" />
+          <EntitySet Name="Especie" EntityType="Self.Especie" />
+          <EntitySet Name="IdentificadorAnimal" EntityType="Self.IdentificadorAnimal" />
+          <EntitySet Name="Sexo" EntityType="Self.Sexo" />
+          <EntitySet Name="StatusAnimal" EntityType="Self.StatusAnimal" />
+          <EntitySet Name="TipoIdentificador" EntityType="Self.TipoIdentificador" />
+          <AssociationSet Name="FK_Animal_Especie" Association="Self.FK_Animal_Especie">
+            <End Role="Especie" EntitySet="Especie" />
+            <End Role="Animal" EntitySet="Animal" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Animal_Sexo" Association="Self.FK_Animal_Sexo">
+            <End Role="Sexo" EntitySet="Sexo" />
+            <End Role="Animal" EntitySet="Animal" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Animal_StatusAnimal" Association="Self.FK_Animal_StatusAnimal">
+            <End Role="StatusAnimal" EntitySet="StatusAnimal" />
+            <End Role="Animal" EntitySet="Animal" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IdentificadorAnimal_Animal" Association="Self.FK_IdentificadorAnimal_Animal">
+            <End Role="Animal" EntitySet="Animal" />
+            <End Role="IdentificadorAnimal" EntitySet="IdentificadorAnimal" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IdentificadorAnimal_TipoIdentificador" Association="Self.FK_IdentificadorAnimal_TipoIdentificador">
+            <End Role="TipoIdentificador" EntitySet="TipoIdentificador" />
+            <End Role="IdentificadorAnimal" EntitySet="IdentificadorAnimal" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="bancoAnimalModelStoreContainer" CdmEntityContainer="bancoAnimalEntities">
+          <EntitySetMapping Name="Animal">
+            <EntityTypeMapping TypeName="bancoAnimalModel.Animal">
+              <MappingFragment StoreEntitySet="Animal">
+                <ScalarProperty Name="idAnimal" ColumnName="idAnimal" />
+                <ScalarProperty Name="Esp_idEspecie" ColumnName="Esp_idEspecie" />
+                <ScalarProperty Name="sex_idSexo" ColumnName="sex_idSexo" />
+                <ScalarProperty Name="StA_idStatusAnimal" ColumnName="StA_idStatusAnimal" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Especie">
+            <EntityTypeMapping TypeName="bancoAnimalModel.Especie">
+              <MappingFragment StoreEntitySet="Especie">
+                <ScalarProperty Name="idEspecie" ColumnName="idEspecie" />
+                <ScalarProperty Name="nomeVulgar" ColumnName="nomeVulgar" />
+                <ScalarProperty Name="nomeCientifico" ColumnName="nomeCientifico" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="IdentificadorAnimal">
+            <EntityTypeMapping TypeName="bancoAnimalModel.IdentificadorAnimal">
+              <MappingFragment StoreEntitySet="IdentificadorAnimal">
+                <ScalarProperty Name="idIdentificadorAnimal" ColumnName="idIdentificadorAnimal" />
+                <ScalarProperty Name="codigoIdentificador" ColumnName="codigoIdentificador" />
+                <ScalarProperty Name="Ani_idAnimal" ColumnName="Ani_idAnimal" />
+                <ScalarProperty Name="TpI_idTipoIdentificador" ColumnName="TpI_idTipoIdentificador" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sexo">
+            <EntityTypeMapping TypeName="bancoAnimalModel.Sexo">
+              <MappingFragment StoreEntitySet="Sexo">
+                <ScalarProperty Name="idSexo" ColumnName="idSexo" />
+                <ScalarProperty Name="descricao" ColumnName="descricao" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="StatusAnimal">
+            <EntityTypeMapping TypeName="bancoAnimalModel.StatusAnimal">
+              <MappingFragment StoreEntitySet="StatusAnimal">
+                <ScalarProperty Name="idStatusAnimal" ColumnName="idStatusAnimal" />
+                <ScalarProperty Name="descricao" ColumnName="descricao" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TipoIdentificador">
+            <EntityTypeMapping TypeName="bancoAnimalModel.TipoIdentificador">
+              <MappingFragment StoreEntitySet="TipoIdentificador">
+                <ScalarProperty Name="idTipoIdentificador" ColumnName="idTipoIdentificador" />
+                <ScalarProperty Name="descricao" ColumnName="descricao" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
