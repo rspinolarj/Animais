@@ -20,7 +20,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Esp_idEspecie, "Espécie", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownList("Esp_idEspecie", null, htmlAttributes: new { @class = "form-control" })
+                @Html.DropDownList("Esp_idEspecie", (SelectList)ViewBag.Esp_idEspecie, htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.Esp_idEspecie, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -28,7 +28,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.sex_idSexo, "Sexo", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownList("sex_idSexo", null, htmlAttributes: new { @class = "form-control" })
+                @Html.DropDownList("sex_idSexo", (SelectList)ViewBag.sex_idSexo, htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.sex_idSexo, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -44,8 +44,7 @@
         <div class="form-group">
             <label class="control-label col-md-2">Tipo de Identificação</label>
             <div class="col-md-10">
-                *** dropdown tipo identificador
-                @*Html.DropDownList("TpI_idTipoIdentificador", null, htmlAttributes: new { @class = "form-control" })*@
+                @Html.DropDownList("TpI_idTipoIdentificador", null, htmlAttributes: new { @class = "form-control" })
             </div>
         </div>
 

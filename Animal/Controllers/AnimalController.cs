@@ -42,6 +42,7 @@ namespace Animal.Controllers
             ViewBag.Esp_idEspecie = new SelectList(db.Especie, "idEspecie", "nomeVulgar");
             ViewBag.sex_idSexo = new SelectList(db.Sexo, "idSexo", "descricao");
             ViewBag.StA_idStatusAnimal = new SelectList(db.StatusAnimal, "idStatusAnimal", "descricao");
+            ViewBag.TpI_idTipoIdentificador = new SelectList(db.TipoIdentificador, "idTipoIdentificador", "descricao");
             return View();
         }
 
@@ -50,7 +51,7 @@ namespace Animal.Controllers
         // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "idAnimal,Esp_idEspecie,sex_idSexo,StA_idStatusAnimal")] Animal.Models.Animal animal)
+        public ActionResult Create([Bind(Include = "idAnimal,Esp_idEspecie,sex_idSexo,StA_idStatusAnimal")] Animal.Models.Animal animal, [Bind(Include = "codigoIdentificador,TpI_idTipoIdentificador")] IdentificadorAnimal identificadorAnimal)
         {
             if (ModelState.IsValid)
             {
