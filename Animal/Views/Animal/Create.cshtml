@@ -10,12 +10,12 @@
 @using (Html.BeginForm()) 
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>Animal</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        
+
 
         <div class="form-group">
             @Html.LabelFor(model => model.Esp_idEspecie, "Espécie", htmlAttributes: new { @class = "control-label col-md-2" })
@@ -41,23 +41,40 @@
             </div>
         </div>
 
-        <div class="form-group">
-            <label class="control-label col-md-2">Tipo de Identificação</label>
-            <div class="col-md-10">
-                @Html.DropDownList("TpI_idTipoIdentificador", null, htmlAttributes: new { @class = "form-control" })
+        
+        <div class="input_fields_wrap">
+            <div class='input_fields_append'>
+                <div class="form-group">
+                    <label class="control-label col-md-2">Tipo de Identificação</label>
+                    <div class="col-md-10">
+                        @Html.DropDownList("TpI_idTipoIdentificador", null, htmlAttributes: new { @class = "form-control", @name = "tipoIdentificador[]" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-2">Código Identificador</label>
+                    <div class="col-md-10">
+                        @Html.TextBox("codigoIdentificador", null, new { @class = "form-control", @name = "codIdentificador[]" })
+                    </div>
+                </div>
             </div>
         </div>
 
+
+        
+
+
         <div class="form-group">
-            <label class="control-label col-md-2">Código Identificador</label>
-            <div class="col-md-10">
-                @Html.TextBox("codigoIdentificador",null, new { @class = "form-control" })
-            </div>
+            <button type="button" id="add_field_button" class="btn btn-labeled add_button">
+                <span class="btn-label">
+                    <i class="fa fa-check"></i>
+                </span>Adicionar Identificador
+            </button>
         </div>
+        
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+                <input type="submit" value="Create" class="btn btn-success pull-right" />
             </div>
         </div>
     </div>
@@ -67,6 +84,17 @@
     @Html.ActionLink("Back to List", "Index")
 </div>
 
+
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+    <script>
+
+        var x = 1; //initlal text box count
+        $(document).ready(function () {
+            var add_button = $("#add_field_button"); //Add button ID
+            $(add_button).click(function (e) { //on add input button click
+                $(".input_fields_append").clone().appendTo($(".input_fields_wrap"));
+            });
+        });
+    </script>
 }

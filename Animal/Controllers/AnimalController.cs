@@ -51,8 +51,9 @@ namespace Animal.Controllers
         // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "idAnimal,Esp_idEspecie,sex_idSexo,StA_idStatusAnimal")] Animal.Models.Animal animal, [Bind(Include = "codigoIdentificador,TpI_idTipoIdentificador")] IdentificadorAnimal identificadorAnimal)
+        public ActionResult Create([Bind(Include = "idAnimal,Esp_idEspecie,sex_idSexo,StA_idStatusAnimal")] Animal.Models.Animal animal, int[] TpI_idTipoIdentificador, int[] codigoIdentificador)
         {
+            var teste = Request.Form;
             if (ModelState.IsValid)
             {
                 db.Animal.Add(animal);
